@@ -1,6 +1,7 @@
 ---
 - name: Download splunk forwarder
-  hosts: 18.206.39.217
+  gather_facts: yes  
+  hosts: 18.132.97.94
   become: yes
   become_method: sudo
   tasks:
@@ -9,38 +10,47 @@
         name: "{{item}}"
         state: latest
       with_items:
-       - epel-release
        - wget 
        - unzip
        - ansible
       ignore_errors: true              
+    - name: downloand forwarder  
+      shell: wget -O splunkforwarder-8.0.3-a6754d8441bf-Linux-x86_64.tgz 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.3&product=universalforwarder&filename=splunkforwarder-8.0.3-a6754d8441bf-Linux-x86_64.tgz&wget=true'
               
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+    - name: unzip forwarder
+      command: tar xvzf splunkforwarder-8.0.3-a6754d8441bf-Linux-x86_64.tgz -C /opt              
 
-# ---
-# - name: Download forwarder
-#   hosts: 18.206.39.217
-#   become: true
-#   become_method: sudo
-#   user: centos
-#   tasks:
-#   - name: Setup a repo   
-#     shell: wget -O splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.3&product=universalforwarder&filename=splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm&wget=true'
+    - name: make user and pass 
+      shell: touch /root/splunkforwarder/etc/system/local/user-seed.conf
+
+    - name: give user admin and pass block in /root/splunkforwarder/etc/system/local/user-seed.conf
+      blockinfile:
+        path: /root/splunkforwarder/etc/system/local/user-seed.conf
+        block: |
+          [user-info]
+           USERNAME = admin
+           PASSWORD = team5
+          
+    - name: Start Splunk Forwarder
+      command: /opt/splunkforwarder/bin/splunk restart --accept-license --answer-yes
+
+    - name: Set forward-server
+      command: /opt/splunkforwarder/bin/splunk add forward-server 18.132.97.94:9997 -auth admin:emr60scK34$
+
+    - name: Add monitor
+      command: /opt/splunkforwarder/bin/splunk add monitor /var/log/messages    
+    
+    - name: Enable Boot Start
+      command: /opt/splunkforwarder/bin/splunk enable boot-start
+     
+    - name: Restart Splunk forwarder
+      command: /opt/splunkforwarder/bin/splunk restart
+      
+              
+              
+              
+              
+              
+              
+              
+              
