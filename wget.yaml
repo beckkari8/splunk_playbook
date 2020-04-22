@@ -35,7 +35,7 @@
       command: /opt/splunkforwarder/bin/splunk start --accept-license --no-prompt --admin-passwd changeme
 
     - name: Set forward-server
-      command: /opt/splunkforwarder/bin/splunk add forward-server 3.22.27.57:9997 -auth admin:changeme
+      command: /opt/splunkforwarder/bin/splunk add forward-server 18.223.189.41:9997 -auth admin:changeme
 
     - name: Add monitor
       command: /opt/splunkforwarder/bin/splunk add monitor /var/log/messages    
