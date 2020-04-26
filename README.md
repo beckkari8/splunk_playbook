@@ -3,8 +3,11 @@ This repo downloads and configures Splunk Forwarder Agent for Linux instances.
 Before this forwarder to work you need to install Splunk Enterprises Server
 
 Splunk Enterprises Server
+
 Requirements;
+
 1-Splunk Enterprises Server 8.0.3
+
 2- Neccessary Packages;
 
 wget
@@ -18,14 +21,20 @@ b)Unzip downloaded file splunk-8.0.3-a6754d8441bf-Linux-x86_64.tgz and move the 
 "tar xvzf splunk-8.0.3-a6754d8441bf-Linux-x86_64.tgz -C /opt"
 
 c)go to /opt/splunk/bin run ./spunk start 
+
 d)go to instance IP adress with management port :8000
+
 e)login with admin:password
+
 d)configure receving port to 9997
 
 
 Splunk Forwarder Agent 8.0.3
+
 Requirements;
+
 1-Splunk Forwarder Agent 8.0.3
+
 2- Neccessary Packages;
 
 wget
@@ -39,6 +48,7 @@ b)Unzip downloaded file and move the downloaded file to /opt directory
 "tar xvzf splunkforwarder-8.0.3-a6754d8441bf-Linux-x86_64.tgz -C /opt"
 
 c)Go to /opt/splunk/bin directory in order to run splunk commands
+
 d)Start Splunk Forwarder
       command: /opt/splunkforwarder/bin/splunk start --accept-license --no-prompt --admin-passwd changeme
   note: this command bypass the license agreement and starts the splunk forwarder
