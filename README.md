@@ -11,7 +11,9 @@ Requirements;
 2- Neccessary Packages;
 
 wget
+
 unzip
+
 ansible
 
 a)sudo yum install wget unzip ansible -y
@@ -38,7 +40,9 @@ Requirements;
 2- Neccessary Packages;
 
 wget
+
 unzip
+
 ansible
 
 a)sudo yum install wget unzip ansible -y
