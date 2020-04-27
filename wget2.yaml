@@ -1,7 +1,7 @@
 ---
 - name: Download splunk forwarder
   gather_facts: yes  
-  hosts: all 
+  hosts: 52.14.192.253
   become: yes
   become_method: sudo
   tasks:
@@ -32,10 +32,10 @@
 #        PASSWORD = team5
           
     - name: Start Splunk Forwarder
-      command: /opt/splunkforwarder/bin/splunk start --accept-license --no-prompt --admin-passwd {{ changeme }}
+      command: /opt/splunkforwarder/bin/splunk start --accept-license --no-prompt --admin-passwd changeme
 
     - name: Set forward-server
-      command: /opt/splunkforwarder/bin/splunk add forward-server 18.223.189.41:9999 -auth admin:{{ changeme }}
+      command: /opt/splunkforwarder/bin/splunk add forward-server 3.22.27.57:9997 -auth admin:changeme
 
     - name: Add monitor
       command: /opt/splunkforwarder/bin/splunk add monitor /var/log/messages    
